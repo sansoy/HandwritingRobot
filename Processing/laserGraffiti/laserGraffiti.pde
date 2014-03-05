@@ -2,6 +2,8 @@ import processing.serial.*;
 import cc.arduino.*;        
 Arduino arduino;
 
+String theWord = "DEUTSCH";
+
 float canvasWidth  = 800;           
 float canvasHeight = 800;
 float distanceToScreen = 800;
@@ -61,6 +63,10 @@ int count=0;
 
 
 void setup() {
+  
+  int wordLength = theWord.length();
+  char currentLetter = theWord.charAt(1);
+  println("wordLength =" + currentLetter);
   
   //YAW SERVO SETUP
   servoYawHalfAngle = int(atan((canvasWidth/2)/distanceToScreen) * 57.2957795);
