@@ -17,8 +17,8 @@ int laseron = 1;     // zero is not actually turned off, but is dimmer
 
 //array http://processing.org/reference/Array.html
 //int[][] letterA = {{ 0, 500, 0}, { 250, 0, 1}, { 500, 500, 1},{ 125, 250, 0},{ 375, 250, 1}};
-//int[][] letterB = {{ 0, 0, 0}, { 0, 500, 1}, { 250, 375, 1},{ 0, 250, 1},{ 250, 125, 1},{0, 0, 1}};
-int[][] letterC = {{ 500, 0, 1}, { 0, 0, 1}, { 0, 500, 1},{ 500, 500, 1},{500,0,0}};
+int[][] letterB = {{ 0, 0, 0}, { 0, 500, 1}, { 250, 375, 1},{ 0, 250, 1},{ 250, 125, 1},{0, 0, 1}};
+//int[][] letterC = {{ 500, 0, 1}, { 0, 0, 1}, { 0, 500, 1},{ 500, 500, 1},{500,0,0}};
                     
 int sizeofletterB = letterB.length;
 int count=0;
