@@ -2,14 +2,25 @@ import processing.serial.*;
 import cc.arduino.*;        
 Arduino arduino;
 
-int canvasWidth  = 500;           
-int canvasHeight = 500;
 
-int maxServoYawDegrees = canvasWidth / 5;
-int minServoYawDegrees = canvasWidth / 7;
+float canvasWidth  = 800;           
+float canvasHeight = 800;
+float distanceToScreen = 800;
 
-int maxServoPitchDegrees = canvasHeight / 5;
-int minServoPitchDegrees = canvasHeight / 7;
+
+int minYaw = 45;
+int maxYaw = 135;
+int servoYawHalfAngle = 0;
+int minServoYawDegrees = minYaw;
+int maxServoYawDegrees = maxYaw;
+
+
+int minPitch = 45;
+int maxPitch = 135;
+int servoPitchHalfAngle = 0;
+int minServoPitchDegrees = minPitch;
+int maxServoPitchDegrees = maxPitch;
+
 
 int initialServoYaw, initialServoPitch;
 
@@ -53,24 +64,39 @@ int count=0;
 
 
 void setup() {
+  
+  servoYawHalfAngle = int(atan((canvasWidth/2)/distanceToScreen) * 57.2957795);
+  
+  minServoYawDegrees = 90 - servoHalfAngle;
+  if(minServoYawDegrees < minYaw ) minServoYawDegrees = 45;
+  
+  maxServoYawDegrees = 90 + servoHalfAngle;
+  if(maxServoYawDegrees > maxYaw) maxServoYawDegrees = 135;
+ 
+  println("init theta =" + maxServoYawDegrees);
+
   size(canvasWidth,canvasHeight);
   smooth();
   background(255);
   frameRate(7);
-  arduino = new Arduino(this, Arduino.list()[3], 57600);
-  initialServoYaw = int(map(round(letter[count][0]*canvasWidth),0,canvasWidth,minServoYawDegrees,maxServoYawDegrees));
-  initialServoPitch = int(map(round(letter[count][1]*canvasHeight),0,canvasHeight,minServoPitchDegrees,maxServoPitchDegrees));
+  //arduino = new Arduino(this, Arduino.list()[3], 57600);
+  //initialServoYaw = int(map(round(letter[count][0]*canvasWidth),0,canvasWidth,minServoYawDegrees,maxServoYawDegrees));
+  //initialServoPitch = int(map(round(letter[count][1]*canvasHeight),0,canvasHeight,minServoPitchDegrees,maxServoPitchDegrees));
   
   //println("init yaw =" + initialServoYaw);
 
-  arduino.analogWrite(9,initialServoYaw);
-  arduino.analogWrite(10,initialServoPitch);
-  arduino.analogWrite(12,laserOff);  // laser off
+  //arduino.analogWrite(9,initialServoYaw);
+  //arduino.analogWrite(10,initialServoPitch);
+  //arduino.analogWrite(9,135); //YAW
+  //arduino.analogWrite(10,0); //PITCH
+  //arduino.analogWrite(12,laserOff);  // laser off
 
 }
-
+/*
 void draw() {
- 
+
+  
+  
   // Display circle at x location
   stroke(0);
   fill(0);
@@ -93,4 +119,4 @@ void draw() {
   }
   
 }
-
+*/
