@@ -2,18 +2,15 @@ import processing.serial.*;
 import cc.arduino.*;        
 Arduino arduino;
 
-
 float canvasWidth  = 800;           
 float canvasHeight = 800;
 float distanceToScreen = 800;
-
 
 int minYaw = 45;
 int maxYaw = 135;
 int servoYawHalfAngle = 0;
 int minServoYawDegrees = minYaw;
 int maxServoYawDegrees = maxYaw;
-
 
 int minPitch = 45;
 int maxPitch = 135;
@@ -65,25 +62,38 @@ int count=0;
 
 void setup() {
   
+  //YAW SERVO SETUP
   servoYawHalfAngle = int(atan((canvasWidth/2)/distanceToScreen) * 57.2957795);
   
-  minServoYawDegrees = 90 - servoHalfAngle;
+  minServoYawDegrees = 90 - servoYawHalfAngle;
   if(minServoYawDegrees < minYaw ) minServoYawDegrees = 45;
   
-  maxServoYawDegrees = 90 + servoHalfAngle;
+  maxServoYawDegrees = 90 + servoYawHalfAngle;
   if(maxServoYawDegrees > maxYaw) maxServoYawDegrees = 135;
  
-  println("init theta =" + maxServoYawDegrees);
+  println("maxYaw =" + maxServoYawDegrees);
 
-  size(canvasWidth,canvasHeight);
+  //PITCH SERVO SETUP
+  servoPitchHalfAngle = int(atan((canvasHeight/2)/distanceToScreen) * 57.2957795);
+  
+  minServoPitchDegrees = 90 - servoPitchHalfAngle;
+  if(minServoPitchDegrees < minPitch ) minServoPitchDegrees = 45;
+  
+  maxServoPitchDegrees = 90 + servoPitchHalfAngle;
+  if(maxServoPitchDegrees > maxPitch) maxServoPitchDegrees = 135;
+ 
+  println("maxPitch = " + maxServoPitchDegrees);
+
+  
+  size(int(canvasWidth),int(canvasHeight));
   smooth();
   background(255);
   frameRate(7);
   //arduino = new Arduino(this, Arduino.list()[3], 57600);
-  //initialServoYaw = int(map(round(letter[count][0]*canvasWidth),0,canvasWidth,minServoYawDegrees,maxServoYawDegrees));
-  //initialServoPitch = int(map(round(letter[count][1]*canvasHeight),0,canvasHeight,minServoPitchDegrees,maxServoPitchDegrees));
+  initialServoYaw = int(map(round(letter[count][0]*canvasWidth),0,canvasWidth,minServoYawDegrees,maxServoYawDegrees));
+  initialServoPitch = int(map(round(letter[count][1]*canvasHeight),0,canvasHeight,minServoPitchDegrees,maxServoPitchDegrees));
   
-  //println("init yaw =" + initialServoYaw);
+  println("init yaw =" + initialServoYaw);
 
   //arduino.analogWrite(9,initialServoYaw);
   //arduino.analogWrite(10,initialServoPitch);
