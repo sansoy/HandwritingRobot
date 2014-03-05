@@ -60,13 +60,17 @@ float[][] letter = {{ 0, 0, 0}, {1, 0, 1}, { 0, 1, 1}, { 1, 1, 1}};  //Z
 
 int sizeOfLetter = letter.length;
 int count=0;
-
+int wordLength;
+char currentLetter;
+int fontSize;
+int kerning = 10;  //space between characters
 
 void setup() {
   
-  int wordLength = theWord.length();
-  char currentLetter = theWord.charAt(1);
-  println("wordLength =" + currentLetter);
+  wordLength = theWord.length();
+  currentLetter = theWord.charAt(1);
+  fontSize = int(canvasWidth / wordLength);
+  println("font size =" + fontSize);
   
   //YAW SERVO SETUP
   servoYawHalfAngle = int(atan((canvasWidth/2)/distanceToScreen) * 57.2957795);
@@ -96,8 +100,8 @@ void setup() {
   background(255);
   frameRate(7);
   //arduino = new Arduino(this, Arduino.list()[3], 57600);
-  initialServoYaw = int(map(round(letter[count][0]*canvasWidth),0,canvasWidth,minServoYawDegrees,maxServoYawDegrees));
-  initialServoPitch = int(map(round(letter[count][1]*canvasHeight),0,canvasHeight,minServoPitchDegrees,maxServoPitchDegrees));
+  initialServoYaw = int(map(round(letter[count][0]*fontSize),0,fontSize,minServoYawDegrees,maxServoYawDegrees));
+  initialServoPitch = int(map(round(letter[count][1]*fontSize),0,fontSize,minServoPitchDegrees,maxServoPitchDegrees));
   
   println("init yaw =" + initialServoYaw);
 
