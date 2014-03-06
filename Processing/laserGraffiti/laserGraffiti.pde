@@ -144,18 +144,21 @@ void setup() {
   
   size(int(canvasWidth), int(canvasHeight));
   smooth();
-  background(255,255,0);
+  background(0,0,0);
   
   frameRate(5);
   
-  initialServoYaw = int(map(round(p.x*fontSize),0,fontSize,minServoYawDegrees,maxServoYawDegrees));
-  initialServoPitch = int(map(round(p.y*fontSize),0,fontSize,minServoPitchDegrees,maxServoPitchDegrees));
-  
+  //initialServoYaw = int(map(round(p.x*fontSize),0,fontSize,minServoYawDegrees,maxServoYawDegrees));
+  //initialServoPitch = int(map(round(p.y*fontSize),0,fontSize,minServoPitchDegrees,maxServoPitchDegrees));
+  initialServoYaw = int(map(round(p.x*fontSize),0,canvasWidth,minServoYawDegrees,maxServoYawDegrees));
+  initialServoPitch = int(map(round(p.y*fontSize),0,canvasHeight,minServoPitchDegrees,maxServoPitchDegrees));
+  ellipse(p.x*fontSize,p.y*fontSize,5,5);
+  /*
   arduino = new Arduino(this, Arduino.list()[3], 57600);
   arduino.analogWrite(9,initialServoYaw);
   arduino.analogWrite(10,initialServoPitch);
   arduino.analogWrite(12,int(p.z)); //LASER STATE
-
+  */
  
 }
 
@@ -171,17 +174,18 @@ void draw() {
      if(strokeNumber < numberOfStrokes){
        
        Vec3 p1 = englishABC.getLetter(currentLetter).getPoint(strokeNumber);
-       servoYaw = int(map(round(p1.x*fontSize+spacing),0,fontSize,minServoYawDegrees,maxServoYawDegrees));
-       servoPitch = int(map(round(p1.y*fontSize),0,fontSize,minServoPitchDegrees,maxServoPitchDegrees));
-       arduino.analogWrite(9,servoYaw);
-       arduino.analogWrite(10,servoPitch);
-       arduino.analogWrite(12,int(p1.z));
-       
+//       servoYaw = int(map(round(p1.x*fontSize+spacing),0,canvasWidth,minServoYawDegrees,maxServoYawDegrees));
+//       servoPitch = int(map(round(p1.y*fontSize),0,canvasHeight,minServoPitchDegrees,maxServoPitchDegrees));
+//       arduino.analogWrite(9,servoYaw);
+//       arduino.analogWrite(10,servoPitch);
+//       arduino.analogWrite(12,int(p1.z));
+         ellipse(p1.x*fontSize+spacing,p1.y*fontSize,10,10);
        strokeNumber++;
      } else {
        spacing = spacing + fontSize;
        eachLetter++;
        strokeNumber = 0;
+       //clear();
      }
      
    }
