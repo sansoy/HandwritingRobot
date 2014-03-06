@@ -3,8 +3,8 @@ import java.util.Map;
 import cc.arduino.*;        
 Arduino arduino;
 
-//String theWord = "DEUTSCHLA";
-String theWord = "DEUTSCHLA";
+String theWord = "DEUTSCH";  //ALL CAPS
+
 float spacing = 0;
 float canvasWidth  = 1500;           
 float canvasHeight = 1000;
@@ -22,49 +22,46 @@ int servoPitchHalfAngle = 0;
 int minServoPitchDegrees = minPitch;
 int maxServoPitchDegrees = maxPitch;
 
-
 int initialServoYaw, initialServoPitch;
 
 int servoYaw, servoPitch;    // current servos positions -in servo range-
-int servoYaw1;
 int laserOff = 0;      // laser is controlled (improperly) as a servo
 int laserOn = 1;     // zero is not actually turned off, but is dimmer
 
 
-float[][] letterA = {{ 0, 1, 0}, { .5, 0, 1}, { 1, 1, 1}, { .25, .5, 0}, {.75, .5, 1},{.75, .5, 0}};  
-float[][] letterB = {{ 0, 1, 1}, { .5, .75, 1}, { 0, .5, 1}, { .5, .25, 1}, { 0, 0, 1}, { 0, 0, 0}}; 
-float[][] letterC = {{ 1, 0, 1}, { 0, 0, 1}, { 0, 1, 1}, { 1, 1, 1}, { 1, 0, 0}};  
-float[][] letterD = {{ 0, 0, 1}, { 0, 1, 1}, { 1, .5, 1},{ 0, 0, 1},{ 0, 0, 0}};  
-float[][] letterE = {{ 0, 0, 1}, { 0, 1, 1}, { 0, 0, 0}, { 1, 0, 1}, {0,.5,0}, {1,.5,1}, {0,1,0}, {1,1,1}, {0,0,0}};  
-float[][] letterF = {{ 0, 0, 1}, { 0, 1, 1}, { 0, 0, 0}, { 1, 0, 1}, {0,.5,0}, {1,.5,1}, {0,0,0}};  
-float[][] letterG = {{ 1, 0, 1}, { 0, 0, 1}, { 0, 1, 1},{ 1, 1, 1}, {1,.5,1 },{.5,.5,1}};  
-float[][] letterH = {{ 0, 0, 0}, { 0, 1, 1}, { 1, 0, 0},{ 1, 1, 1}, {0,.5,0 },{1,.5, 1 }, {1,.5, 0}};  
-float[][] letterI = {{ 0, 0, 0}, { 1, 0, 1}, { 0, 1, 0},{ 1, 1, 1}, {.5,0,0 },{.5,1,1 }};  
-float[][] letterJ = {{ 0, 0, 0}, { 1, 0, 1}, { .5, 0, 0},{ .5, 1, 1}, {.25,1,1 },{.25,.75,1}};  
-float[][] letterK = {{ 0, 0, 0}, { 0, 1, 1}, { 1, 0, 0},{ 0, .5, 1}, {1,1,1}};  
-float[][] letterL = {{ 0, 0, 0}, { 0, 1, 1}, { 1, 1, 1}};  
-float[][] letterM = {{ 0, 1, 0}, { 0, 0, 1}, { .5, 1, 1},{ 1, 0, 1}, {1,1,1}};  
-float[][] letterN = {{ 0, 1, 0}, { 0, 0, 1}, { 1, 1, 1},{ 1, 0, 1}};  
-float[][] letterO = {{ 0, 0, 0}, { 0, 1, 1}, { 1, 1, 1},{ 1, 0, 1},{0,0,1}};  
-float[][] letterP = {{ 0, 1, 0}, { 0, 0, 1}, { 1, 0, 1},{ 1, .5, 1},{0,.5,1}};  
-float[][] letterQ = {{ 0, 0, 0}, { 0, .8, 1}, { .8, .8, 1},{ .8, 0, 1},{0,0,1},{.5,.5,0}, {1,1,1}};  
-float[][] letterR = {{ 0, 1, 0}, { 0, 0, 1}, { 1, 0, 1},{ 1, .5, 1},{0,.5,1},{1,1,1}};  
-float[][] letterS = {{ 1, 0, 0}, { 0, 0, 1}, { 0, .5, 1},{ 1, .5, 1},{1,1,1},{0,1,1}}; 
-float[][] letterT = {{ 0, 0, 0}, { 1, 0, 1}, { .5, 0, 0}, { .5, 1, 1}}; 
-float[][] letterU = {{ 0, 0, 0}, { 0, 1, 1}, { 1, 1, 1}, { 1, 0, 1}};  
-float[][] letterV = {{ 0, 0, 0}, { .5, 1, 1}, { 1, 0, 1}};  
-float[][] letterW = {{ 0, 0, 0}, { .25, 1, 1}, { .5, .5, 1}, { .75, 1, 1}, {1, 0, 1}};  
-float[][] letterX = {{ 0, 0, 0}, { 1, 1, 1}, { 1, 0, 0}, { 0, 1, 1}};  
-float[][] letterY = {{ 0, 0, 0}, {.5, .5, 1}, { 1, 0, 1}, { .5, .5, 0}, {.5, 1, 1}};  
-float[][] letterZ = {{ 0, 0, 0}, {1, 0, 1}, { 0, 1, 1}, { 1, 1, 1}};  
+float[][] letterA = {{ 0, 1, 0}, { 0, 1, 1}, { .5, 0, 1}, { 1, 1, 1}, { .25, .5, 0}, {.75, .5, 1},{.75, .5, 0}};  
+float[][] letterB = {{ 0, 0, 0}, { 0, 0, 1}, { 0, 1, 1}, { .5, .75, 1}, { 0, .5, 1}, { .5, .25, 1}, { 0, 0, 1}, { 0, 0, 0}}; 
+float[][] letterC = {{ 1, 0, 0}, { 1, 0, 1}, { 0, 0, 1}, { 0, 1, 1}, { 1, 1, 1}, { 1, 0, 0}};  
+float[][] letterD = {{ 0, 0, 0}, { 0, 0, 1}, { 0, 1, 1}, { 1, .5, 1},{ 0, 0, 1},{ 0, 0, 0}};  
+float[][] letterE = {{ 0, 0, 0}, { 0, 0, 1}, { 0, 1, 1}, { 0, 0, 0}, { 1, 0, 1}, {0,.5,0}, {1,.5,1}, {0,1,0}, {1,1,1}, {0,0,0}};  
+float[][] letterF = {{ 0, 0, 0}, { 0, 0, 1}, { 0, 1, 1}, { 0, 0, 0}, { 1, 0, 1}, {0,.5,0}, {1,.5,1}, {0,0,0}};  
+float[][] letterG = {{ 1, 0, 0}, { 1, 0, 1}, { 0, 0, 1}, { 0, 1, 1},{ 1, 1, 1}, {1,.5,1 },{.5,.5,1},{.5,.5,0}};  
+float[][] letterH = {{ 0, 0, 0}, { 0, 0, 1}, { 0, 1, 1}, { 1, 0, 0},{ 1, 1, 1}, {0,.5,0 },{1,.5, 1 }, {1,.5, 0}};  
+float[][] letterI = {{ 0, 0, 0}, { 0, 0, 1}, { 1, 0, 1}, { 0, 1, 0},{ 1, 1, 1}, {.5,0,0 },{.5,1,1 },{.5,1,0}};  
+float[][] letterJ = {{ 0, 0, 0}, { 0, 0, 1}, { 1, 0, 1}, { .5, 0, 0},{ .5, 1, 1}, {.25,1,1 },{.25,.75,1},{.25,.75,0}};  
+float[][] letterK = {{ 0, 0, 0}, { 0, 0, 1}, { 0, 1, 1}, { 1, 0, 0},{ 0, .5, 1}, {1,1,1}, {1,1,0}};  
+float[][] letterL = {{ 0, 0, 0}, { 0, 0, 1}, { 0, 1, 1}, { 1, 1, 1}, { 1, 1, 0}};  
+float[][] letterM = {{ 0, 1, 0}, { 0, 1, 1}, { 0, 0, 1}, { .5, 1, 1},{ 1, 0, 1}, {1,1,1}, {1,1,0}};  
+float[][] letterN = {{ 0, 1, 0}, { 0, 1, 1}, { 0, 0, 1}, { 1, 1, 1},{ 1, 0, 1},{ 1, 0, 1}};  
+float[][] letterO = {{ 0, 0, 0}, { 0, 0, 1}, { 0, 0, 1}, { 0, 1, 1}, { 1, 1, 1}, { 1, 0, 1}, {0,0,1}, {0,0,0}};  
+float[][] letterP = {{ 0, 1, 0}, { 0, 1, 1}, { 0, 0, 1}, { 1, 0, 1},{ 1, .5, 1},{0,.5,1},{0,.5,0}};  
+float[][] letterQ = {{ 0, 0, 0}, { 0, 0, 1}, { 0, .8, 1}, { .8, .8, 1},{ .8, 0, 1},{0,0,1},{.5,.5,0}, {1,1,1}, {1,1,0}};  
+float[][] letterR = {{ 0, 1, 0}, { 0, 1, 1}, { 0, 0, 1}, { 1, 0, 1},{ 1, .5, 1},{0,.5,1},{1,1,1},{1,1,0}};  
+float[][] letterS = {{ 1, 0, 0}, { 1, 0, 1}, { 0, 0, 1}, { 0, .5, 1},{ 1, .5, 1},{1,1,1},{0,1,1},{0,1,0}}; 
+float[][] letterT = {{ 0, 0, 0}, { 0, 0, 1}, { 1, 0, 1}, { .5, 0, 0}, { .5, 1, 1}, { .5, 1, 0}}; 
+float[][] letterU = {{ 0, 0, 0}, { 0, 0, 1}, { 0, 1, 1}, { 1, 1, 1}, { 1, 0, 1}, { 1, 0, 0}};  
+float[][] letterV = {{ 0, 0, 0}, { 0, 0, 1}, { .5, 1, 1}, { 1, 0, 1}, { 1, 0, 0}};  
+float[][] letterW = {{ 0, 0, 0}, { 0, 0, 1}, { .25, 1, 1}, { .5, .5, 1}, { .75, 1, 1}, {1, 0, 1}, {1, 0, 0}};  
+float[][] letterX = {{ 0, 0, 0}, { 0, 0, 1}, { 1, 1, 1}, { 1, 0, 0}, { 0, 1, 1}, { 0, 1, 0}};  
+float[][] letterY = {{ 0, 0, 0}, { 0, 0, 1}, {.5, .5, 1}, { 1, 0, 1}, { .5, .5, 0}, {.5, 1, 1},{.5, 1, 0}};  
+float[][] letterZ = {{ 0, 0, 0}, { 0, 0, 1}, {1, 0, 1}, { 0, 1, 1}, { 1, 1, 1}, { 1, 1, 0}};  
 
 Alphabet englishABC;
 
-int sizeOfLetter;
 int wordLength;
 char currentChar;
 int fontSize;
-float tracking = .1;  //space between characters
+float kerning = .1;  //space between characters
 int eachLetter = 0;
 String currentLetter;
 int numberOfStrokes;
@@ -72,7 +69,8 @@ int strokeNumber = 0;
 
 
 void setup() {
-  
+
+  frameRate(6);  
 
   englishABC = new Alphabet();
   englishABC.addLetter("A", letterA, letterA.length);
@@ -103,7 +101,7 @@ void setup() {
   englishABC.addLetter("Z", letterZ, letterZ.length);
 
   wordLength = theWord.length();
-  fontSize = int((canvasWidth / wordLength)*(1 - tracking));
+  fontSize = int((canvasWidth / wordLength)*(1 - kerning));
 
   char firstChar = theWord.charAt(0);
   String firstLetter = String.valueOf(firstChar);
@@ -146,12 +144,12 @@ void setup() {
   smooth();
   background(0,0,0);
   
-  frameRate(5);
+
   
-  //initialServoYaw = int(map(round(p.x*fontSize),0,fontSize,minServoYawDegrees,maxServoYawDegrees));
-  //initialServoPitch = int(map(round(p.y*fontSize),0,fontSize,minServoPitchDegrees,maxServoPitchDegrees));
-  initialServoYaw = int(map(round(p.x*fontSize),0,canvasWidth,minServoYawDegrees,maxServoYawDegrees));
+  initialServoYaw = int(map(round(p.x*fontSize+spacing),0,canvasWidth,minServoYawDegrees,maxServoYawDegrees));
+  //initialServoPitch = int(map(round(p.y*fontSize+canvasHeight*.1),0,canvasHeight,minServoPitchDegrees,maxServoPitchDegrees));
   initialServoPitch = int(map(round(p.y*fontSize),0,canvasHeight,minServoPitchDegrees,maxServoPitchDegrees));
+
   ellipse(p.x*fontSize,p.y*fontSize,5,5);
  
   arduino = new Arduino(this, Arduino.list()[3], 57600);
@@ -175,49 +173,22 @@ void draw() {
        
        Vec3 p1 = englishABC.getLetter(currentLetter).getPoint(strokeNumber);
        servoYaw = int(map(round(p1.x*fontSize+spacing),0,canvasWidth,minServoYawDegrees,maxServoYawDegrees));
-       servoPitch = int(map(round(p1.y*fontSize+canvasHeight/2),0,canvasHeight,minServoPitchDegrees,maxServoPitchDegrees));
+       //servoPitch = int(map(round(p1.y*fontSize+canvasHeight*.1),0,canvasHeight,minServoPitchDegrees,maxServoPitchDegrees));
+       servoPitch = int(map(round(p1.y*fontSize),0,canvasHeight,minServoPitchDegrees,maxServoPitchDegrees));
+
        arduino.analogWrite(9,servoYaw);
        arduino.analogWrite(10,servoPitch);
        arduino.analogWrite(12,int(p1.z));
-         ellipse(p1.x*fontSize+spacing,p1.y*fontSize+canvasHeight/2,10,10);
+       ellipse(p1.x*fontSize+spacing,p1.y*fontSize,10,10);
        strokeNumber++;
      } else {
-       spacing = spacing + fontSize*(1+tracking);
+       spacing = spacing + fontSize*(1+kerning);
        eachLetter++;
        strokeNumber = 0;
        //clear();
      }
      
    }
-   
-   
-//   for( eachLetter=0; eachLetter < wordLength; eachLetter++){
-// 
-//     currentChar = theWord.charAt(eachLetter);
-//     currentLetter = String.valueOf(currentChar);
-//     
-//     Letter myLetter = (Letter)englishABC.getLetter(currentLetter);
-//     numberOfStrokes = myLetter.getTotal();
-//
-//     for(strokeNumber=0; strokeNumber < numberOfStrokes; strokeNumber++){
-//       println(strokeNumber);
-//       
-//       Vec3 p1 = englishABC.getLetter(currentLetter).getPoint(strokeNumber);
-//
-//        int yaw1 = round(p1.x*fontSize);
-//        int pitch1 = round(p1.y*fontSize);
-//       servoYaw = int(map(yaw1,0,fontSize,minServoYawDegrees,maxServoYawDegrees));
-//       servoPitch = int(map(pitch1,0,fontSize,minServoPitchDegrees,maxServoPitchDegrees));
-//
-//println(servoYaw);
-//println(numberOfStrokes);
-//       arduino.analogWrite(9,servoYaw);
-//       arduino.analogWrite(10,servoPitch);
-//      // arduino.analogWrite(12,int(p1.z)); //LASER STATE
-//        now = millis();
-//     }
-//     }
-   
    
 
 
