@@ -1,5 +1,3 @@
-//float[][] letter = {{ 0, 1, 1}, { .5, .75, 1},{ 0, .5, 1},{ .5, .25, 1},{0, 0, 1}};  // B
-
 class Vec3{
   public float x;
   public float y;
@@ -36,6 +34,9 @@ class Letter{
   public Vec3 getPoint(int index) {
     return (Vec3)strokePoints.get(index);
   }
+  public int getTotal() {
+    return strokePoints.size();
+  }
   
 }
 
@@ -49,7 +50,7 @@ class Alphabet{
     letters = new ArrayList();
   }
   public void addLetter(String name, float[][] coords, int total) {
-    println("Add letter: " + name);
+    //println("Add letter: " + name);
     abcs.add(name);
     Letter nLetter = new Letter();
     for(int i = 0; i < total; ++i) {
@@ -59,10 +60,14 @@ class Alphabet{
   }
   // Getters
   public Letter getLetter(String letter) {
+
     int i, total = abcs.size();
     for(i = 0; i < total; ++i) {
-      if((String)abcs.get(i) == letter) {
+      if (abcs.get(i).equals(letter) == true) {
+        //println("Found letter: " + letter);
         return (Letter)letters.get(i);
+      } else {
+        //println("Letter Not Found: " + letter);
       }
     }
     return null;
