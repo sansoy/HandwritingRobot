@@ -34,7 +34,8 @@ void setup()
     servo10.attach(10);
     //laser12.attach(12);
     pinMode(laser12, OUTPUT);
-   
+    digitalWrite(laser12,HIGH);  // needed to turn laser off using PNP Transistor
+
     Firmata.begin(57600);
 }
 

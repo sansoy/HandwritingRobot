@@ -58,6 +58,7 @@ float[][] letterZ = {{ 0, 0, 0}, { 0, 0, 1}, {1, 0, 1}, { 0, 1, 1}, { 1, 1, 1}, 
 
 Alphabet englishABC;
 
+int sizeOfLetter;
 int wordLength;
 char currentChar;
 int fontSize;
